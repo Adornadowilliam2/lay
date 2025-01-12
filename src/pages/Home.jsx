@@ -1161,8 +1161,6 @@ const [open, setOpen] = useState(false);
                           <TableCell></TableCell> {/* For the arrow column */}
                           <TableCell>Username</TableCell>
                           <TableCell>Room</TableCell>
-                          <TableCell>Subject</TableCell>
-                          <TableCell>Section</TableCell>
                           <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
@@ -1190,13 +1188,6 @@ const [open, setOpen] = useState(false);
                               <TableCell>{booking?.users?.name}</TableCell>
                               <TableCell>{booking?.rooms?.room_name}</TableCell>
                               <TableCell>
-                                {booking?.subjects?.subject_name}
-                              </TableCell>
-                              <TableCell>
-                                {booking?.sections?.section_name}
-                              </TableCell>
-
-                              <TableCell>
                                 <Button
                                   onClick={() => setEditDialog(booking)}
                                   color="warning"
@@ -1218,30 +1209,31 @@ const [open, setOpen] = useState(false);
                             {/* Additional content to be displayed when row is expanded */}
                             {expandedRows.includes(booking.id) && (
                               <TableRow>
-                                <TableCell colSpan={5}>
-                                  <Table>
-                                    <TableBody>
-                                      <TableRow>
-                                        <TableCell>
-                                          Day of Week: {booking?.day_of_week}
-                                        </TableCell>
-                                        <TableCell>
-                                          Time:{" "}
-                                          {booking?.start_time.slice(0, 5)} -{" "}
-                                          {booking?.end_time.slice(0, 5)}
-                                        </TableCell>
-                                        <TableCell>
-                                          Book From: {booking?.book_from}
-                                        </TableCell>
-                                        <TableCell>
-                                          Book Until: {booking?.book_until}
-                                        </TableCell>
-                                        <TableCell>
-                                          Status: {booking?.status}
-                                        </TableCell>
-                                      </TableRow>
-                                    </TableBody>
-                                  </Table>
+                                <TableCell colSpan={4}>
+                                  <List>
+                                    <ListItem>
+                                      Subject: {booking?.subjects?.subject_name}
+                                    </ListItem>
+                                    <ListItem>
+                                      Section: {booking?.sections?.section_name}
+                                    </ListItem>
+                                    <ListItem>
+                                      Day of Week: {booking?.day_of_week}
+                                    </ListItem>
+                                    <ListItem>
+                                      Time: {booking?.start_time.slice(0, 5)} -{" "}
+                                      {booking?.end_time.slice(0, 5)}
+                                    </ListItem>
+                                    <ListItem>
+                                      Book From: {booking?.book_from}
+                                    </ListItem>
+                                    <ListItem>
+                                      Book Until: {booking?.book_until}
+                                    </ListItem>
+                                    <ListItem>
+                                      Status: {booking?.status}
+                                    </ListItem>
+                                  </List>
                                 </TableCell>
                               </TableRow>
                             )}
