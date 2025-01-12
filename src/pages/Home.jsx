@@ -1148,6 +1148,7 @@ const [open, setOpen] = useState(false);
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  flexWrap: isSmallScreen ? "wrap" : "nowrap",
                 }}
               >
                 <Container>
@@ -1380,9 +1381,7 @@ const [open, setOpen] = useState(false);
                           <TableCell>Room</TableCell>
                           <TableCell>Subject</TableCell>
                           <TableCell>Section</TableCell>
-                  
-                            <TableCell>Action</TableCell>
-                 
+                          <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -1414,25 +1413,24 @@ const [open, setOpen] = useState(false);
                               <TableCell>
                                 {booking?.sections?.section_name}
                               </TableCell>
-                        
-                                <TableCell>
-                                  <Button
-                                    onClick={() => setEditDialog(booking)}
-                                    color="warning"
-                                    variant="contained"
-                                    sx={{ mr: 1 }}
-                                  >
-                                    Edit
-                                  </Button>
-                                  <Button
-                                    onClick={() => setDeleteDialog(booking.id)}
-                                    color="error"
-                                    variant="contained"
-                                  >
-                                    Delete
-                                  </Button>
-                                </TableCell>
-                     
+
+                              <TableCell>
+                                <Button
+                                  onClick={() => setEditDialog(booking)}
+                                  color="warning"
+                                  variant="contained"
+                                  sx={{ mr: 1 }}
+                                >
+                                  Edit
+                                </Button>
+                                <Button
+                                  onClick={() => setDeleteDialog(booking.id)}
+                                  color="error"
+                                  variant="contained"
+                                >
+                                  Delete
+                                </Button>
+                              </TableCell>
                             </TableRow>
 
                             {/* Additional content to be displayed when row is expanded */}
@@ -1484,9 +1482,8 @@ const [open, setOpen] = useState(false);
                           <TableCell>Book From</TableCell>
                           <TableCell>Book Until</TableCell>
                           <TableCell>Status</TableCell>
-                    
-                            <TableCell>Action</TableCell>
-                
+
+                          <TableCell>Action</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -1534,24 +1531,23 @@ const [open, setOpen] = useState(false);
                               {booking?.status}
                             </TableCell>
 
-                              <TableCell>
-                                <Button
-                                  onClick={() => setEditDialog(booking)}
-                                  color="warning"
-                                  variant="contained"
-                                  sx={{ mr: 1 }}
-                                >
-                                  Edit
-                                </Button>
-                                <Button
-                                  onClick={() => setDeleteDialog(booking.id)}
-                                  color="error"
-                                  variant="contained"
-                                >
-                                  Delete
-                                </Button>
-                              </TableCell>
-                    
+                            <TableCell>
+                              <Button
+                                onClick={() => setEditDialog(booking)}
+                                color="warning"
+                                variant="contained"
+                                sx={{ mr: 1 }}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                onClick={() => setDeleteDialog(booking.id)}
+                                color="error"
+                                variant="contained"
+                              >
+                                Delete
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
