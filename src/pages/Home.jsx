@@ -938,6 +938,7 @@ const [open, setOpen] = useState(false);
                       <TableCell
                         sx={{
                           p: isSmallScreen ? 1 : 2,
+                          border: "1px solid black",
                         }}
                       >
                         More Info Click Here
@@ -945,6 +946,7 @@ const [open, setOpen] = useState(false);
                       <TableCell
                         sx={{
                           p: isSmallScreen ? 1 : 2,
+                          border: "1px solid black",
                         }}
                       >
                         Username
@@ -952,6 +954,7 @@ const [open, setOpen] = useState(false);
                       <TableCell
                         sx={{
                           p: isSmallScreen ? 1 : 2,
+                          border: "1px solid black",
                         }}
                       >
                         Room Name
@@ -959,6 +962,7 @@ const [open, setOpen] = useState(false);
                       <TableCell
                         sx={{
                           p: isSmallScreen ? 1 : 2,
+                          border: "1px solid black",
                         }}
                       >
                         Actions
@@ -972,6 +976,7 @@ const [open, setOpen] = useState(false);
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
                             <Button
@@ -993,6 +998,7 @@ const [open, setOpen] = useState(false);
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
                             {booking?.id + ".) " + booking?.users?.name}
@@ -1000,11 +1006,12 @@ const [open, setOpen] = useState(false);
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
                             {booking?.rooms?.room_name}
                           </TableCell>
-                          <TableCell>
+                          <TableCell sx={{ border: "1px solid black" }}>
                             <Button
                               onClick={() => setEditDialog(booking)}
                               color="warning"
@@ -1026,15 +1033,8 @@ const [open, setOpen] = useState(false);
                         {/* Additional content to be displayed when row is expanded */}
                         {expandedRows.includes(booking.id) && (
                           <TableRow>
-                            <TableCell colSpan={3}>
+                            <TableCell colSpan={4}>
                               <List>
-                                <ListItem>
-                                  Day of Week: {booking.day_of_week}
-                                </ListItem>
-                                <ListItem>
-                                  Time: {booking.start_time.slice(0, 5)} -{" "}
-                                  {booking.end_time.slice(0, 5)}
-                                </ListItem>
                                 <ListItem>
                                   Subject: {booking?.subjects?.subject_name}
                                 </ListItem>
@@ -1042,10 +1042,17 @@ const [open, setOpen] = useState(false);
                                   Section: {booking?.sections?.section_name}
                                 </ListItem>
                                 <ListItem>
-                                  Book From: {booking.book_from}
+                                  Day of Week: {booking?.day_of_week}
                                 </ListItem>
                                 <ListItem>
-                                  Book Until: {booking.book_until}
+                                  Time: {booking?.start_time.slice(0, 5)} -{" "}
+                                  {booking?.end_time.slice(0, 5)}
+                                </ListItem>
+                                <ListItem>
+                                  Book From: {booking?.book_from}
+                                </ListItem>
+                                <ListItem>
+                                  Book Until: {booking?.book_until}
                                 </ListItem>
                                 <ListItem>Status: {booking?.status}</ListItem>
                               </List>
@@ -1092,7 +1099,19 @@ const [open, setOpen] = useState(false);
               </FormControl>
 
               {/* Calendar with Red Dots for Bookings */}
-
+              <Box
+                sx={{
+                  mt: 4,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: isSmallScreen
+                    ? "space-evenly"
+                    : "space-between",
+                  flexWrap: isSmallScreen ? "wrap" : "nowrap",
+                }}
+              >
+                <Calendar tileContent={tileContent} />
+              </Box>
               {/* Bookings Table for the selected section */}
               <Box sx={{ mt: 4 }}>
                 <Typography variant="h6">
@@ -1103,21 +1122,22 @@ const [open, setOpen] = useState(false);
                   }
                 </Typography>
                 {isSmallScreen ? (
-                  <TableContainer component={Paper} sx={{ mt: 2 }}>
+                  <TableContainer component={Paper}>
                     <Table>
                       <TableHead>
                         <TableRow>
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
-                            More Info Click Here lol
-                          </TableCell>{" "}
-                          {/* For the arrow column */}
+                            More Info Click Here
+                          </TableCell>
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
                             Username
@@ -1125,16 +1145,18 @@ const [open, setOpen] = useState(false);
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
-                            Room
+                            Room Name
                           </TableCell>
                           <TableCell
                             sx={{
                               p: isSmallScreen ? 1 : 2,
+                              border: "1px solid black",
                             }}
                           >
-                            Action
+                            Actions
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -1145,11 +1167,20 @@ const [open, setOpen] = useState(false);
                         ).map((booking) => (
                           <>
                             <TableRow key={booking.id}>
-                              <TableCell>
+                              <TableCell
+                                sx={{
+                                  p: isSmallScreen ? 1 : 2,
+                                  border: "1px solid black",
+                                }}
+                              >
                                 <Button
                                   onClick={() => handleRowToggle(booking.id)}
                                   size="small"
                                   variant="outlined"
+                                  sx={{
+                                    minWidth: "40px",
+                                    textAlign: "center",
+                                  }}
                                 >
                                   {expandedRows.includes(booking.id) ? (
                                     <ExpandLess />
@@ -1161,18 +1192,20 @@ const [open, setOpen] = useState(false);
                               <TableCell
                                 sx={{
                                   p: isSmallScreen ? 1 : 2,
+                                  border: "1px solid black",
                                 }}
                               >
-                                {booking?.users?.name}
+                                {booking?.id + ".) " + booking?.users?.name}
                               </TableCell>
                               <TableCell
                                 sx={{
                                   p: isSmallScreen ? 1 : 2,
+                                  border: "1px solid black",
                                 }}
                               >
                                 {booking?.rooms?.room_name}
                               </TableCell>
-                              <TableCell>
+                              <TableCell sx={{ border: "1px solid black" }}>
                                 <Button
                                   onClick={() => setEditDialog(booking)}
                                   color="warning"
