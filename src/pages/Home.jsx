@@ -956,6 +956,13 @@ const [open, setOpen] = useState(false);
                       >
                         Room Name
                       </TableCell>
+                      <TableCell
+                        sx={{
+                          p: isSmallScreen ? 1 : 2,
+                        }}
+                      >
+                        Actions
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -996,6 +1003,23 @@ const [open, setOpen] = useState(false);
                             }}
                           >
                             {booking?.rooms?.room_name}
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              onClick={() => setEditDialog(booking)}
+                              color="warning"
+                              variant="contained"
+                              sx={{ mr: 1 }}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              onClick={() => setDeleteDialog(booking.id)}
+                              color="error"
+                              variant="contained"
+                            >
+                              Delete
+                            </Button>
                           </TableCell>
                         </TableRow>
 
@@ -1068,227 +1092,7 @@ const [open, setOpen] = useState(false);
               </FormControl>
 
               {/* Calendar with Red Dots for Bookings */}
-              <Box
-                sx={{
-                  mt: 4,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: isSmallScreen
-                    ? "space-evenly"
-                    : "space-between",
-                  flexWrap: isSmallScreen ? "wrap" : "nowrap",
-                }}
-              >
-                <Container>
-                  <Calendar tileContent={tileContent} />
-                </Container>
-                <Container sx={{ maxWidth: 400 }}>
-                  <Typography variant="h6">Create New Booking</Typography>
-                  <Divider sx={{ marginBottom: 2 }} />
-                  <Box component="form" onSubmit={handleAddBooking}>
-                    <Grid container spacing={2}>
-                      {/* Room Name Select */}
-                      <Grid item xs={6}>
-                        <FormControl fullWidth>
-                          <InputLabel id="room-select-label">
-                            Room Name
-                          </InputLabel>
-                          <Select
-                            labelId="room-select-label"
-                            name="roomId"
-                            value={newBooking.roomId}
-                            onChange={handleBookingChange}
-                            label="Room Name"
-                          >
-                            {rooms.map((room) => (
-                              <MenuItem key={room.id} value={room.id}>
-                                {room.room_name} (Capacity: {room.capacity})
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {warnings?.room_id ? (
-                            <FormHelperText error>
-                              {warnings.room_id}
-                            </FormHelperText>
-                          ) : null}
-                        </FormControl>
-                      </Grid>
 
-                      {/* Days of the Week */}
-                      <Grid item xs={6}>
-                        <FormControl fullWidth>
-                          <InputLabel id="days-select-label">
-                            Days of the Week
-                          </InputLabel>
-                          <Select
-                            labelId="days-select-label"
-                            name="daysOfWeek"
-                            multiple
-                            value={newBooking.daysOfWeek}
-                            onChange={handleDaySelection}
-                            renderValue={(selected) => selected.join(", ")}
-                          >
-                            {[
-                              "Monday",
-                              "Tuesday",
-                              "Wednesday",
-                              "Thursday",
-                              "Friday",
-                              "Saturday",
-                              "Sunday",
-                            ].map((day) => (
-                              <MenuItem key={day} value={day}>
-                                <Checkbox
-                                  checked={newBooking.daysOfWeek.includes(day)}
-                                />
-                                {day}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {warnings?.day_of_week ? (
-                            <FormHelperText error>
-                              {warnings.day_of_week}
-                            </FormHelperText>
-                          ) : null}
-                        </FormControl>
-                      </Grid>
-
-                      {/* Start Time */}
-                      <Grid item xs={6}>
-                        <InputLabel>Start Time</InputLabel>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <MobileTimePicker
-                            value={newBooking.startTime}
-                            onChange={handleStartTimeChange}
-                          />
-                        </LocalizationProvider>
-                        {warnings?.start_time ? (
-                          <FormHelperText error>
-                            {warnings.start_time}
-                          </FormHelperText>
-                        ) : null}
-                      </Grid>
-
-                      {/* End Time */}
-                      <Grid item xs={6}>
-                        <InputLabel>End Time</InputLabel>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <MobileTimePicker
-                            value={newBooking.endTime}
-                            onChange={handleEndTimeChange}
-                          />
-                        </LocalizationProvider>
-                        {warnings?.end_time ? (
-                          <FormHelperText error>
-                            {warnings.end_time}
-                          </FormHelperText>
-                        ) : null}
-                      </Grid>
-
-                      {/* Subject Select */}
-                      <Grid item xs={6}>
-                        <FormControl fullWidth>
-                          <InputLabel id="subject-select-label">
-                            Subject
-                          </InputLabel>
-                          <Select
-                            labelId="subject-select-label"
-                            name="subjectId"
-                            value={newBooking.subjectId}
-                            onChange={handleBookingChange}
-                            label="Subject"
-                          >
-                            {subjects.map((subject) => (
-                              <MenuItem key={subject.id} value={subject.id}>
-                                {subject.subject_name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {warnings?.subject_id ? (
-                            <FormHelperText error>
-                              {warnings.subject_id}
-                            </FormHelperText>
-                          ) : null}
-                        </FormControl>
-                      </Grid>
-
-                      {/* Section Select */}
-                      <Grid item xs={6}>
-                        <FormControl fullWidth>
-                          <InputLabel id="section-select-label">
-                            Section
-                          </InputLabel>
-                          <Select
-                            labelId="section-select-label"
-                            name="sectionId"
-                            value={newBooking.sectionId}
-                            onChange={handleBookingChange}
-                            label="Section"
-                          >
-                            {sections.map((section) => (
-                              <MenuItem key={section.id} value={section.id}>
-                                {section.section_name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {warnings?.section_id ? (
-                            <FormHelperText error>
-                              {warnings.section_id}
-                            </FormHelperText>
-                          ) : null}
-                        </FormControl>
-                      </Grid>
-
-                      {/* Date From */}
-                      <Grid item xs={6}>
-                        <TextField
-                          label="Date From"
-                          name="date_from"
-                          type="date"
-                          value={newBooking.date_from}
-                          onChange={handleBookingChange}
-                          fullWidth
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                        />
-                        {warnings?.book_from ? (
-                          <FormHelperText error>
-                            {warnings.book_from}
-                          </FormHelperText>
-                        ) : null}
-                      </Grid>
-
-                      {/* Date Until */}
-                      <Grid item xs={6}>
-                        <TextField
-                          label="Date Until"
-                          name="date_until"
-                          type="date"
-                          value={newBooking.date_until}
-                          onChange={handleBookingChange}
-                          fullWidth
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                        />
-                        {warnings?.book_until ? (
-                          <FormHelperText error>
-                            {warnings.book_until}
-                          </FormHelperText>
-                        ) : null}
-                      </Grid>
-
-                      {/* Submit Button */}
-                      <Grid item xs={12}>
-                        <Button variant="contained" type="submit" fullWidth>
-                          Add Booking
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Container>
-              </Box>
               {/* Bookings Table for the selected section */}
               <Box sx={{ mt: 4 }}>
                 <Typography variant="h6">
@@ -1303,11 +1107,35 @@ const [open, setOpen] = useState(false);
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell>More Info Click Here</TableCell>{" "}
+                          <TableCell
+                            sx={{
+                              p: isSmallScreen ? 1 : 2,
+                            }}
+                          >
+                            More Info Click Here lol
+                          </TableCell>{" "}
                           {/* For the arrow column */}
-                          <TableCell>Username</TableCell>
-                          <TableCell>Room</TableCell>
-                          <TableCell>Action</TableCell>
+                          <TableCell
+                            sx={{
+                              p: isSmallScreen ? 1 : 2,
+                            }}
+                          >
+                            Username
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              p: isSmallScreen ? 1 : 2,
+                            }}
+                          >
+                            Room
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              p: isSmallScreen ? 1 : 2,
+                            }}
+                          >
+                            Action
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -1322,7 +1150,6 @@ const [open, setOpen] = useState(false);
                                   onClick={() => handleRowToggle(booking.id)}
                                   size="small"
                                   variant="outlined"
-                                  sx={{ minWidth: "40px" }}
                                 >
                                   {expandedRows.includes(booking.id) ? (
                                     <ExpandLess />
@@ -1331,8 +1158,20 @@ const [open, setOpen] = useState(false);
                                   )}
                                 </Button>
                               </TableCell>
-                              <TableCell>{booking?.users?.name}</TableCell>
-                              <TableCell>{booking?.rooms?.room_name}</TableCell>
+                              <TableCell
+                                sx={{
+                                  p: isSmallScreen ? 1 : 2,
+                                }}
+                              >
+                                {booking?.users?.name}
+                              </TableCell>
+                              <TableCell
+                                sx={{
+                                  p: isSmallScreen ? 1 : 2,
+                                }}
+                              >
+                                {booking?.rooms?.room_name}
+                              </TableCell>
                               <TableCell>
                                 <Button
                                   onClick={() => setEditDialog(booking)}
