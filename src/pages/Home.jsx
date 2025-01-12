@@ -1467,7 +1467,9 @@ export default function Home() {
                 <Container>
                   <Calendar tileContent={tileContent} />
                 </Container>
-                <Container sx={{ maxWidth: 400 }}>
+                <Container
+                  sx={{ maxWidth: 400, marginTop: isSmallScreen ? 2 : 0 }}
+                >
                   <Typography variant="h6">Create New Booking</Typography>
                   <Divider sx={{ marginBottom: 2 }} />
                   <Box component="form" onSubmit={handleAddBooking}>
